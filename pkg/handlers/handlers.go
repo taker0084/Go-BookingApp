@@ -1,9 +1,9 @@
 package handlers
 
 import (
-	"myapp/pkg/config"
-	"myapp/pkg/models"
-	"myapp/pkg/render"
+	"github.com/taker0084/Go-BookingApp/pkg/config"
+	"github.com/taker0084/Go-BookingApp/pkg/models"
+	"github.com/taker0084/Go-BookingApp/pkg/render"
 	"net/http"
 )
 

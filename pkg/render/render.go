@@ -4,10 +4,11 @@ import (
 	"bytes"
 	"html/template"
 	"log"
-	"myapp/pkg/config"
-	"myapp/pkg/models"
 	"net/http"
 	"path/filepath"
+
+	"github.com/taker0084/Go-BookingApp/pkg/config"
+	"github.com/taker0084/Go-BookingApp/pkg/models"
 )
 
 var app *config.AppConfig

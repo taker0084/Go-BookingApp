@@ -1,8 +1,8 @@
 package main
 
 import (
-	"myapp/pkg/config"
-	"myapp/pkg/handlers"
+	"github.com/taker0084/Go-BookingApp/pkg/config"
+	"github.com/taker0084/Go-BookingApp/pkg/handlers"
 	"net/http"
 
 	// "github.com/bmizerany/pat"

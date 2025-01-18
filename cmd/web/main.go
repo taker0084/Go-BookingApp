@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 	"log"
-	"github.com/taker0084/Go-BookingApp/pkg/config"
-	"github.com/taker0084/Go-BookingApp/pkg/handlers"
-	"github.com/taker0084/Go-BookingApp/pkg/render"
+	"github.com/taker0084/Go-BookingApp/internal/config"
+	"github.com/taker0084/Go-BookingApp/internal/handlers"
+	"github.com/taker0084/Go-BookingApp/internal/render"
 	"net/http"
 	"time"
 

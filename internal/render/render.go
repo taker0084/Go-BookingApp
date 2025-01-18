@@ -7,8 +7,9 @@ import (
 	"net/http"
 	"path/filepath"
 
-	"github.com/taker0084/Go-BookingApp/pkg/config"
-	"github.com/taker0084/Go-BookingApp/pkg/models"
+	"github.com/justinas/nosurf"
+	"github.com/taker0084/Go-BookingApp/internal/config"
+	"github.com/taker0084/Go-BookingApp/internal/models"
 )
 
 var app *config.AppConfig
@@ -19,14 +20,15 @@ func NewTemplates(a *config.AppConfig){
 }
 
 //if needed, add some actions in this function
-func AddDefaultData(td *models.TemplateData) *models.TemplateData{
+func AddDefaultData(td *models.TemplateData,r *http.Request) *models.TemplateData{
 	//example
 	//td.Flash="success"
 	//td.CSRFToken = "**********"
+	td.CSRFToken = nosurf.Token(r)
 	return td
 }
 //RenderTemplates renders templates using html/template
-func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData){
+func RenderTemplate(w http.ResponseWriter, r *http.Request, tmpl string, td *models.TemplateData){
 	var tc map[string]*template.Template
 	if app.UseCache{
 		//create a template cache
@@ -41,7 +43,7 @@ func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData)
 		log.Fatal("could not get template from template cache")
 	}
 
-	td = AddDefaultData(td)
+	td = AddDefaultData(td, r)
 
 	buf := new(bytes.Buffer)
 	_= t.Execute(buf,td)

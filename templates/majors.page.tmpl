@@ -4,7 +4,7 @@
     <div class="container">
       <div class=""row></div>
         <div class="col">
-          <img src="/static/images/marjors-suite.png" class="img-fluid img-thumbnail mx-auto d-block room-image" alt="room image">
+          <img src="/static/images/majors-suite.png" class="img-fluid img-thumbnail mx-auto d-block room-image" alt="room image">
         </div>
       </div>
       <div class="row">
@@ -42,7 +42,7 @@
     <script>
       document.getElementById("check-availability").addEventListener("click",function(){
         let html = `
-          <form id="check-availabitily-form" action="" method="post" novalidate class="needs-validation">
+          <form id="check-availability-form" action="" method="post" novalidate class="needs-validation">
             <div class="form-row">
               <div class="col">
                 <div class="form-row" id="reservation-dates-modal">
@@ -57,7 +57,42 @@
             </div>
           </form>
         `
-        attention.custom({msg: html,title:"choose your date"});
+        attention.custom({
+          msg: html,
+          title:"choose your date",
+        willOpen: ()=>{
+            const elem = document.getElementById("reservation-dates-modal");
+            const rp = new DateRangePicker(elem,{
+              format: 'yyyy-mm-dd',
+              showOnFocus: true,
+              container: "body",
+            })
+          },
+
+          didOpen: ()=>{
+            document.getElementById("start").removeAttribute("disabled");
+            document.getElementById("end").removeAttribute("disabled");
+          },
+
+          callback: (result)=>{
+            console.log("called");
+
+            let form = document.getElementById("check-availability-form");
+            let formData = new FormData(form);
+            formData.append("csrf_token", "{{.CSRFToken}}");
+
+            fetch('/search-availability-json',{
+              method: "post",
+              body: formData,
+            })
+              .then(response => response.json())
+              .then(data => {
+                console.log(data);
+                console.log(data.ok);
+                console.log(data.message);
+              })
+          }
+        });
       })
     </script>
 {{end}}

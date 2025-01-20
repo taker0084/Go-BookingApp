@@ -1,0 +1,16 @@
+mode: set
+github.com/taker0084/Go-BookingApp/internal/forms/error.go:6.44,8.2 1 1
+github.com/taker0084/Go-BookingApp/internal/forms/error.go:11.42,13.18 2 1
+github.com/taker0084/Go-BookingApp/internal/forms/error.go:13.18,15.3 1 1
+github.com/taker0084/Go-BookingApp/internal/forms/error.go:16.2,16.14 1 1
+github.com/taker0084/Go-BookingApp/internal/forms/forms.go:18.28,20.2 1 1
+github.com/taker0084/Go-BookingApp/internal/forms/forms.go:23.32,28.2 1 1
+github.com/taker0084/Go-BookingApp/internal/forms/forms.go:31.42,32.30 1 1
+github.com/taker0084/Go-BookingApp/internal/forms/forms.go:32.30,34.36 2 1
+github.com/taker0084/Go-BookingApp/internal/forms/forms.go:34.36,36.4 1 1
+github.com/taker0084/Go-BookingApp/internal/forms/forms.go:41.38,46.2 2 1
+github.com/taker0084/Go-BookingApp/internal/forms/forms.go:49.55,51.20 2 1
+github.com/taker0084/Go-BookingApp/internal/forms/forms.go:51.20,54.3 2 1
+github.com/taker0084/Go-BookingApp/internal/forms/forms.go:55.2,55.13 1 1
+github.com/taker0084/Go-BookingApp/internal/forms/forms.go:59.37,60.39 1 1
+github.com/taker0084/Go-BookingApp/internal/forms/forms.go:60.39,62.3 1 1

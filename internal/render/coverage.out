@@ -1,0 +1,25 @@
+mode: set
+github.com/taker0084/Go-BookingApp/internal/render/render.go:22.39,24.2 1 1
+github.com/taker0084/Go-BookingApp/internal/render/render.go:27.82,36.2 5 1
+github.com/taker0084/Go-BookingApp/internal/render/render.go:38.104,40.17 2 1
+github.com/taker0084/Go-BookingApp/internal/render/render.go:40.17,43.3 1 0
+github.com/taker0084/Go-BookingApp/internal/render/render.go:43.8,45.3 1 1
+github.com/taker0084/Go-BookingApp/internal/render/render.go:48.2,49.8 2 1
+github.com/taker0084/Go-BookingApp/internal/render/render.go:49.8,51.3 1 1
+github.com/taker0084/Go-BookingApp/internal/render/render.go:53.2,57.13 4 1
+github.com/taker0084/Go-BookingApp/internal/render/render.go:57.13,59.3 1 0
+github.com/taker0084/Go-BookingApp/internal/render/render.go:62.2,63.15 2 1
+github.com/taker0084/Go-BookingApp/internal/render/render.go:63.15,66.3 2 0
+github.com/taker0084/Go-BookingApp/internal/render/render.go:67.2,67.12 1 1
+github.com/taker0084/Go-BookingApp/internal/render/render.go:70.65,75.15 3 1
+github.com/taker0084/Go-BookingApp/internal/render/render.go:75.15,77.3 1 0
+github.com/taker0084/Go-BookingApp/internal/render/render.go:80.2,80.28 1 1
+github.com/taker0084/Go-BookingApp/internal/render/render.go:80.28,84.16 3 1
+github.com/taker0084/Go-BookingApp/internal/render/render.go:84.16,86.4 1 0
+github.com/taker0084/Go-BookingApp/internal/render/render.go:88.3,89.16 2 1
+github.com/taker0084/Go-BookingApp/internal/render/render.go:89.16,91.4 1 0
+github.com/taker0084/Go-BookingApp/internal/render/render.go:93.3,93.22 1 1
+github.com/taker0084/Go-BookingApp/internal/render/render.go:93.22,95.17 2 1
+github.com/taker0084/Go-BookingApp/internal/render/render.go:95.17,97.5 1 0
+github.com/taker0084/Go-BookingApp/internal/render/render.go:100.3,100.21 1 1
+github.com/taker0084/Go-BookingApp/internal/render/render.go:102.2,102.21 1 1

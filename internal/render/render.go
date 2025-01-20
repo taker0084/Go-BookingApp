@@ -2,6 +2,8 @@ package render
 
 import (
 	"bytes"
+	"errors"
+	"fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -11,8 +13,10 @@ import (
 	"github.com/taker0084/Go-BookingApp/internal/config"
 	"github.com/taker0084/Go-BookingApp/internal/models"
 )
+var functions = template.FuncMap{}
 
 var app *config.AppConfig
+var pathToTemplates = "./templates"
 
 //NewTemplates set the config for the template package
 func NewTemplates(a *config.AppConfig){
@@ -24,11 +28,14 @@ func AddDefaultData(td *models.TemplateData,r *http.Request) *models.TemplateDat
 	//example
 	//td.Flash="success"
 	//td.CSRFToken = "**********"
+	td.Flash=app.Session.PopString(r.Context(),"flash")
+	td.Error=app.Session.PopString(r.Context(),"error")
+	td.Warning=app.Session.PopString(r.Context(),"warning")
 	td.CSRFToken = nosurf.Token(r)
 	return td
 }
 //RenderTemplates renders templates using html/template
-func RenderTemplate(w http.ResponseWriter, r *http.Request, tmpl string, td *models.TemplateData){
+func RenderTemplate(w http.ResponseWriter, r *http.Request, tmpl string, td *models.TemplateData) error{
 	var tc map[string]*template.Template
 	if app.UseCache{
 		//create a template cache
@@ -40,27 +47,31 @@ func RenderTemplate(w http.ResponseWriter, r *http.Request, tmpl string, td *mod
 	//get requested template from cache
 	t,ok := tc[tmpl]
 	if !ok{
-		log.Fatal("could not get template from template cache")
+		return errors.New("can't get template from cache")
 	}
 
 	td = AddDefaultData(td, r)
 
 	buf := new(bytes.Buffer)
-	_= t.Execute(buf,td)
+	err := t.Execute(buf,td)
+	if err!=nil{
+		log.Fatal(err)
+	}
 
 	//render the template
-	_, err := buf.WriteTo(w)
+	_, err = buf.WriteTo(w)
 	if err != nil{
-		log.Println("Error writing template to browser", err)
-		return
+		fmt.Println("Error writing template to browser", err)
+		return err
 	}
+	return nil
 }
 
 func CreateTemplateCache() (map[string]*template.Template,error){
 	myCache := map[string]*template.Template{}
 
 	//get all of the files named *.page.tmpl from ./templates
-	pages, err := filepath.Glob("./templates/*.page.tmpl")
+	pages, err := filepath.Glob(fmt.Sprintf("%s/*.page.tmpl",pathToTemplates))
 	if err != nil{
 		return myCache, err
 	}
@@ -69,18 +80,18 @@ func CreateTemplateCache() (map[string]*template.Template,error){
 	for _, page := range pages{
 		//get file name
 		name := filepath.Base(page)
-		ts, err := template.New(name).ParseFiles(page)
+		ts, err := template.New(name).Funcs(functions).ParseFiles(page)
 		if err != nil{
 			return myCache, err
 		}
 		//get all layout files ending with *.layout.tmpl
-		matches, err := filepath.Glob("./templates/*.layout.tmpl")
+		matches, err := filepath.Glob(fmt.Sprintf("%s/*.layout.tmpl",pathToTemplates))
 		if err != nil{
 			return myCache, err
 		}
 		//if find layout files, associate with templates and layouts
 		if len(matches) > 0{
-			ts, err = ts.ParseGlob("./templates/*.layout.tmpl")
+			ts, err = ts.ParseGlob(fmt.Sprintf("%s/*.layout.tmpl",pathToTemplates))
 			if err != nil{
 				return myCache, err
 			}

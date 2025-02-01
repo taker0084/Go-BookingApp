@@ -8,19 +8,42 @@ import (
 	"log"
 	"net/http"
 	"path/filepath"
+	"time"
 
 	"github.com/justinas/nosurf"
 	"github.com/taker0084/Go-BookingApp/internal/config"
 	"github.com/taker0084/Go-BookingApp/internal/models"
 )
-var functions = template.FuncMap{}
+var functions = template.FuncMap{
+	"humanDate": HumanDate,
+	"formatDate": FormatDate,
+	"iterate": Iterate,
+}
 
 var app *config.AppConfig
 var pathToTemplates = "./templates"
 
+func Iterate(count int)[]int{
+	var i int
+	var items []int
+	for i=1; i<=count; i++{
+		items = append(items, i)
+	}
+	return items
+}
 //NewTemplates set the config for the template package
-func NewTemplates(a *config.AppConfig){
+func NewRenderer(a *config.AppConfig){
 	app = a
+}
+
+
+//HumanDate returns time in YYYY-MM-DD format
+func HumanDate(t time.Time) string{
+	return t.Format("2006-01-02")
+}
+
+func FormatDate(t time.Time, f string)string{
+	return t.Format(f)
 }
 
 //if needed, add some actions in this function
@@ -32,10 +55,13 @@ func AddDefaultData(td *models.TemplateData,r *http.Request) *models.TemplateDat
 	td.Error=app.Session.PopString(r.Context(),"error")
 	td.Warning=app.Session.PopString(r.Context(),"warning")
 	td.CSRFToken = nosurf.Token(r)
+	if app.Session.Exists(r.Context(), "user_id"){
+		td.IsAuthenticated = 1
+	}
 	return td
 }
 //RenderTemplates renders templates using html/template
-func RenderTemplate(w http.ResponseWriter, r *http.Request, tmpl string, td *models.TemplateData) error{
+func Template(w http.ResponseWriter, r *http.Request, tmpl string, td *models.TemplateData) error{
 	var tc map[string]*template.Template
 	if app.UseCache{
 		//create a template cache

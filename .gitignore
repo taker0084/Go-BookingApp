@@ -1,4 +1,5 @@
 .DS_Store
 .vscode
-GoApp
+bookings
 */*/coverage.out
+database.yml

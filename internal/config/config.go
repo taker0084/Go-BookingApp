@@ -5,6 +5,7 @@ import (
 	"log"
 
 	"github.com/alexedwards/scs/v2"
+	"github.com/taker0084/Go-BookingApp/internal/models"
 )
 
 //さまざまなファイルでデータの受け渡しを行いたい(データベースのコネクトなど)場合、
@@ -16,4 +17,5 @@ type AppConfig struct {
 	ErrorLog *log.Logger
 	InProduction bool
 	Session *scs.SessionManager
+	MailChan chan models.MailData
 }
